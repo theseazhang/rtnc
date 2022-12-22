@@ -4,6 +4,8 @@
 # 在根目录下创建.env.local文件，并设置有关系统变量
 copy .env.example .env.local
 
-# 代码格式化
-npm install -D prettier prettier-plugin-tailwindcss
+# 常用命令
+npm run dev
+npm run build
+npm run start
 ```
