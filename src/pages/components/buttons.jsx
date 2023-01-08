@@ -42,19 +42,19 @@ export default function Home() {
         </Link>
       </nav>
       <Example title="Buttons">
-        <Button>primary</Button>
-        <Button className="px-4 leading-5">leading-5</Button>
-        <Button className="px-4 text-base leading-5">text-base</Button>
+        <Button>primary/sm</Button>
+        <Button size="base">base size</Button>
+        <Button size="lg">
+          lg size
+          <EnvelopeIcon className="h-5 w-5" aria-hidden="true" />
+        </Button>
         <Button variant="secondary">secondary</Button>
         <Button variant="white">white</Button>
         <Button>
           <EnvelopeIcon className="h-4 w-4" aria-hidden="true" />
           heroicons
         </Button>
-        <Button className="px-6 py-3 text-base leading-5">
-          big-button
-          <EnvelopeIcon className="h-5 w-5" aria-hidden="true" />
-        </Button>
+
         <Button className="rounded-full px-3.5">rounded-full</Button>
         <Button className="rounded-full px-1 py-1" title="circular buttons">
           <PlusIcon className="h-4 w-4" aria-hidden="true" />

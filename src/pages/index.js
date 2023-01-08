@@ -18,10 +18,16 @@ export default function Home() {
         </A>
         <Example title="Components">
           <Link
-            href={'/components/button'}
+            href={'/components/buttons'}
             className="underline hover:text-indigo-600"
           >
-            button
+            Buttons
+          </Link>
+          <Link
+            href={'/components/modals'}
+            className="underline hover:text-indigo-600"
+          >
+            Modals
           </Link>
         </Example>
         <Example title="Templates"></Example>
