@@ -90,7 +90,7 @@ export default function Home() {
       <section>
         <BasicModal
           title="This is a modal!"
-          description="This is a description, it is a <p></p> tag."
+          description="This is a description, it is a <p></p> tag. The dismiss button only show while screen >= 640px."
           buttonText="buttonText"
           showIcon={modalProps.showIcon}
           showCancel={modalProps.showCancel}
