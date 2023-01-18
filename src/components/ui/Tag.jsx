@@ -9,7 +9,6 @@ const colorStyle = {
   yellow: 'shadow-[4px_4px_0_0_#F59E0B] hover:bg-yellow-500',
   green: 'shadow-[4px_4px_0_0_#10B981] hover:bg-green-500',
   blue: 'shadow-[4px_4px_0_0_#3B82F6] hover:bg-blue-500',
-  indigo: 'shadow-[4px_4px_0_0_#6366F1] hover:bg-indigo-500',
   purple: 'shadow-[4px_4px_0_0_#8B5CF6] hover:bg-purple-500',
   pink: 'shadow-[4px_4px_0_0_#EC4899] hover:bg-pink-500',
   orange: 'shadow-[4px_4px_0_0_#F97316] hover:bg-orange-500',
@@ -17,6 +16,7 @@ const colorStyle = {
   teal: 'shadow-[4px_4px_0_0_#14B8A6] hover:bg-teal-500',
   sky: 'shadow-[4px_4px_0_0_#0EA5E9] hover:bg-sky-500',
   rose: 'shadow-[4px_4px_0_0_#F43F5E] hover:bg-rose-500',
+  indigo: 'shadow-[4px_4px_0_0_#6366F1] hover:bg-indigo-500',
 }
 
 const defaultColors = []

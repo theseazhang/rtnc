@@ -1,8 +1,8 @@
 import { Example } from '@/components/layout/example'
 import { Button } from '@/components/ui/Button'
 import { BasicModal } from '@/components/ui/Modal'
+import { BackHome } from '@/components/ui/Nav'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useState } from 'react'
 
 export default function Home() {
@@ -75,11 +75,7 @@ export default function Home() {
       <Head>
         <title>Modals</title>
       </Head>
-      <nav className="my-10 text-center">
-        <Link href="/" className="text-3xl underline hover:text-indigo-600">
-          Home
-        </Link>
-      </nav>
+      <BackHome />
       <Example title="Modals">
         <Button onClick={openModal}>Basic</Button>
         <Button onClick={openModal2}>Show Icon</Button>

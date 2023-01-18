@@ -1,6 +1,7 @@
 import { Example } from '@/components/layout/example'
 import { Button } from '@/components/ui/Button'
 import { Tags } from '@/components/ui/Tag'
+import { BackHome } from '@/components/ui/Nav'
 import {
   Basic,
   CheckboxDropdown,
@@ -14,7 +15,6 @@ import {
   ChevronRightIcon,
 } from '@heroicons/react/20/solid'
 import Head from 'next/head'
-import Link from 'next/link'
 
 const buttonGroupData = [
   { text: 'Years', href: '#' },
@@ -58,11 +58,7 @@ export default function Home() {
       <Head>
         <title>Buttons</title>
       </Head>
-      <nav className="my-10 text-center">
-        <Link href="/" className="text-3xl underline hover:text-indigo-600">
-          Home
-        </Link>
-      </nav>
+      <BackHome />
       <Example title="Buttons">
         <Button>primary/sm</Button>
         <Button size="base">base size</Button>
