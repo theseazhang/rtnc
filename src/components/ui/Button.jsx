@@ -2,7 +2,7 @@ import Link from 'next/link'
 import clsx from 'clsx'
 
 const defaultStyle =
-  'inline-flex items-center justify-center rounded-md border border-transparent font-medium shadow-sm  gap-2 focus:outline-none'
+  'inline-flex items-center justify-center rounded-md border border-transparent font-medium shadow-sm'
 
 const variantStyles = {
   primary: 'bg-indigo-600 text-white hover:bg-indigo-700',

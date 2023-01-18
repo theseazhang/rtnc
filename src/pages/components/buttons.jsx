@@ -1,5 +1,6 @@
 import { Example } from '@/components/layout/example'
 import { Button } from '@/components/ui/Button'
+import { Tags } from '@/components/ui/Tag'
 import {
   Basic,
   CheckboxDropdown,
@@ -30,6 +31,27 @@ const dropdownData = {
   ],
 }
 
+const tagsData = [
+  { tagName: 'books', tagNum: 8, href: '#' },
+  { tagName: 'development', tagNum: 42, href: '#' },
+  { tagName: 'work', tagNum: 8, href: '#' },
+  { tagName: 'React', tagNum: 8, href: '#' },
+  { tagName: 'Next.js', tagNum: 8, href: '#' },
+  { tagName: 'Tailwind CSS', tagNum: 8, href: '#' },
+  { tagName: 'front-end', tagNum: 8, href: '#' },
+  { tagName: 'back-end', tagNum: 8, href: '#' },
+  { tagName: 'resume', tagNum: 8, href: '#' },
+  { tagName: 'books', tagNum: 8, href: '#' },
+  { tagName: 'development', tagNum: 42, href: '#' },
+  { tagName: 'work', tagNum: 8, href: '#' },
+  { tagName: 'React', tagNum: 8, href: '#' },
+  { tagName: 'Next.js', tagNum: 8, href: '#' },
+  { tagName: 'Tailwind CSS', tagNum: 8, href: '#' },
+  { tagName: 'front-end', tagNum: 8, href: '#' },
+  { tagName: 'back-end', tagNum: 8, href: '#' },
+  { tagName: 'resume', tagNum: 8, href: '#' },
+]
+
 export default function Home() {
   return (
     <>
@@ -46,15 +68,14 @@ export default function Home() {
         <Button size="base">base size</Button>
         <Button size="lg">
           lg size
-          <EnvelopeIcon className="h-5 w-5" aria-hidden="true" />
+          <EnvelopeIcon className="ml-2 -mr-0.5 h-5 w-5" aria-hidden="true" />
         </Button>
         <Button variant="secondary">secondary</Button>
         <Button variant="white">white</Button>
         <Button>
-          <EnvelopeIcon className="h-4 w-4" aria-hidden="true" />
+          <EnvelopeIcon className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
           heroicons
         </Button>
-
         <Button className="rounded-full px-3.5">rounded-full</Button>
         <Button className="rounded-full px-1 py-1" title="circular buttons">
           <PlusIcon className="h-4 w-4" aria-hidden="true" />
@@ -79,6 +100,11 @@ export default function Home() {
         </OnlyIcon>
         <Dropdown text={dropdownData.text} items={dropdownData.items} />
         <CheckboxDropdown />
+      </Example>
+
+      <Example title="Tags">
+        <Tags items={tagsData} />
+        <Tags items={tagsData.slice(0, 4)} />
       </Example>
     </>
   )
