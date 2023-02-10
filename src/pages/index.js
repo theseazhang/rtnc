@@ -47,6 +47,12 @@ export default function Home() {
           >
             Links
           </Link>
+          <Link
+            href={'/components/table'}
+            className="text-blue-500 hover:text-blue-600"
+          >
+            Table
+          </Link>
         </Example>
         <Example title="Templates"></Example>
       </main>

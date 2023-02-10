@@ -1,6 +1,6 @@
 export function Example({ title, children }) {
   return (
-    <section className="mx-auto max-w-5xl p-8">
+    <section className="mx-auto max-w-5xl overflow-hidden p-2 sm:p-4 lg:p-8">
       <h1 className="mb-10 border-b border-slate-200 pb-8 text-center text-3xl font-bold">
         {title}
       </h1>

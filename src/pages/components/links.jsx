@@ -10,11 +10,11 @@ export default function Home() {
         <title>Links</title>
       </Head>
       <BackHome />
-      <Example title="Tags">
+      <Example title="Colorful Link">
         <p className="text-xl">
           This is an example for{' '}
-          <Link href="#" className="color-link">
-            color link
+          <Link href="#" className="colorful-link">
+            colorful link
           </Link>
           .
         </p>
