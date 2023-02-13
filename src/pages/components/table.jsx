@@ -1,21 +1,23 @@
 import { Example } from '@/components/layout/example'
 import { BackHome } from '@/components/ui/Nav'
+import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 import Head from 'next/head'
-import BasicTable from '@/components/ui/Table'
+import { BasicTable, CheckboxTable } from '@/components/ui/Table'
+import { forwardRef, useState } from 'react'
 
 function actionRender(name) {
   return (
     <div className="flex flex-col gap-2 sm:flex-row">
       <Link
         href={`/edit/${name}`}
-        className="text-blue-500 hover:text-blue-600"
+        className="text-indigo-600 hover:text-indigo-900"
       >
         Edit<span className="sr-only">{name}</span>
       </Link>
       <Link
         href={`/delete/${name}`}
-        className="text-blue-500 hover:text-blue-600"
+        className="text-indigo-600 hover:text-indigo-900"
       >
         Delete<span className="sr-only">{name}</span>
       </Link>
@@ -40,6 +42,20 @@ const tableData = {
       email: 'courtney.henry@example.com',
       role: 'Admin',
       action: actionRender('Courtney Henry'),
+    },
+    {
+      name: 'Tom Cook',
+      title: 'Director of Product',
+      email: 'tom.cook@example.com',
+      role: 'Member',
+      action: actionRender('Tom Cook'),
+    },
+    {
+      name: 'Whitney Francis',
+      title: 'Copywriter',
+      email: 'whitney.francis@example.com',
+      role: 'Admin',
+      action: actionRender('Whitney Francis'),
     },
   ],
 }
@@ -66,29 +82,89 @@ const apiData = {
     },
     {
       name: 'items',
-      description:
-        '表格数据数组，每个元素是一个键值对，键名对应columns，值可以是字符串或者React组件',
+      description: 'Table data. Array element can be string or react component',
       type: 'array',
       example: '[{name: "Lindsay", title: "Developer"}]',
       default: '[]',
+      required: 'false',
+    },
+    {
+      name: 'stripe',
+      description: 'With striped rows',
+      type: 'boolean',
+      example: 'true',
+      default: 'false',
+      required: 'false',
+    },
+    {
+      name: 'verticalLines',
+      description: 'With vertical lines',
+      type: 'boolean',
+      example: 'true',
+      default: 'false',
+      required: 'false',
+    },
+    {
+      name: 'condensed',
+      description: 'With condensed content',
+      type: 'boolean',
+      example: 'true',
+      default: 'false',
       required: 'false',
     },
   ],
 }
 
 export default function Home() {
+  const [checkboxItems, setCheckboxItems] = useState([...tableData.items])
+
+  function bulkDelete() {
+    setCheckboxItems(tableData.items.slice(0, 2))
+  }
+
+  function resetData() {
+    setCheckboxItems([...tableData.items])
+  }
+
   return (
     <>
       <Head>
         <title>Table</title>
       </Head>
       <BackHome />
-      <Example title="Basic Table">
+      <Example title="Basic Table (with striped rows and vertical lines)">
         <BasicTable
           items={tableData.items}
           columns={tableData.columns}
           mainColumn={tableData.mainColumn}
+          stripe={true}
+          verticalLines={true}
         />
+      </Example>
+      <Example title="With Condensed Content">
+        <BasicTable
+          items={tableData.items}
+          columns={tableData.columns}
+          mainColumn={tableData.mainColumn}
+          condensed={true}
+        />
+      </Example>
+      <Example title="CheckboxTable">
+        <div className="w-full">
+          <div className="mb-4 space-x-3 text-right">
+            <Button variant="white" onClick={bulkDelete}>
+              Bulk Delete
+            </Button>
+            <Button variant="white" onClick={resetData}>
+              Reset
+            </Button>
+          </div>
+          <CheckboxTable
+            items={checkboxItems}
+            columns={tableData.columns}
+            mainColumn={tableData.mainColumn}
+          />
+        </div>
       </Example>
       <Example title="Table Attributes">
         <BasicTable
