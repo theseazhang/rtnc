@@ -1,10 +1,8 @@
 import { Example } from '@/components/layout/example'
 import { BackHome } from '@/components/ui/Nav'
-import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 import Head from 'next/head'
 import { BasicTable, CheckboxTable } from '@/components/ui/Table'
-import { forwardRef, useState } from 'react'
 
 function actionRender(name) {
   return (
@@ -15,12 +13,12 @@ function actionRender(name) {
       >
         Edit<span className="sr-only">{name}</span>
       </Link>
-      <Link
-        href={`/delete/${name}`}
+      <button
+        onClick={handler}
         className="text-indigo-600 hover:text-indigo-900"
       >
         Delete<span className="sr-only">{name}</span>
-      </Link>
+      </button>
     </div>
   )
 }
@@ -116,16 +114,6 @@ const apiData = {
 }
 
 export default function Home() {
-  const [checkboxItems, setCheckboxItems] = useState([...tableData.items])
-
-  function bulkDelete() {
-    setCheckboxItems(tableData.items.slice(0, 2))
-  }
-
-  function resetData() {
-    setCheckboxItems([...tableData.items])
-  }
-
   return (
     <>
       <Head>
@@ -150,21 +138,11 @@ export default function Home() {
         />
       </Example>
       <Example title="CheckboxTable">
-        <div className="w-full">
-          <div className="mb-4 space-x-3 text-right">
-            <Button variant="white" onClick={bulkDelete}>
-              Bulk Delete
-            </Button>
-            <Button variant="white" onClick={resetData}>
-              Reset
-            </Button>
-          </div>
-          <CheckboxTable
-            items={checkboxItems}
-            columns={tableData.columns}
-            mainColumn={tableData.mainColumn}
-          />
-        </div>
+        <CheckboxTable
+          items={tableData.items}
+          columns={tableData.columns}
+          mainColumn={tableData.mainColumn}
+        />
       </Example>
       <Example title="Table Attributes">
         <BasicTable
