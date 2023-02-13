@@ -13,10 +13,7 @@ function actionRender(name) {
       >
         Edit<span className="sr-only">{name}</span>
       </Link>
-      <button
-        onClick={handler}
-        className="text-indigo-600 hover:text-indigo-900"
-      >
+      <button className="text-indigo-600 hover:text-indigo-900">
         Delete<span className="sr-only">{name}</span>
       </button>
     </div>
