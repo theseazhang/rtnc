@@ -1,6 +1,15 @@
 import clsx from 'clsx'
-import { Button } from '@/components/ui/Button'
-import { useLayoutEffect, useRef, forwardRef, useState } from 'react'
+import {
+  useEffect,
+  useLayoutEffect,
+  useImperativeHandle,
+  forwardRef,
+  useState,
+  useRef,
+} from 'react'
+
+const pl = 'pl-4 sm:pl-6'
+const pr = 'pr-4 sm:pr-6'
 
 export function BasicTable({
   mainColumn = columns[0],
@@ -10,12 +19,9 @@ export function BasicTable({
   verticalLines,
   condensed,
 }) {
-  const pl = 'pl-4 sm:pl-6'
-  const pr = 'pr-4 sm:pr-6'
   const default_pl = condensed ? 'pl-2' : 'pl-3'
   const default_pr = condensed ? 'pr-2' : 'pr-3'
   if (!items) items = []
-
   return (
     <div className="w-full overflow-x-auto rounded-lg shadow ring-1 ring-black ring-opacity-5">
       <table className="w-full divide-y divide-gray-300">
@@ -77,71 +83,53 @@ export function BasicTable({
   )
 }
 
-export function CheckboxTable({
-  mainColumn = columns[0],
-  items,
-  columns,
-  stripe,
-  verticalLines,
-  condensed,
-}) {
-  const pl = 'pl-4 sm:pl-6'
-  const pr = 'pr-4 sm:pr-6'
-  const default_pl = condensed ? 'pl-2' : 'pl-3'
-  const default_pr = condensed ? 'pr-2' : 'pr-3'
-  const checkboxStyle =
-    'absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 sm:left-6'
+export const CheckboxTable = forwardRef(
+  (
+    {
+      mainColumn = columns[0],
+      items,
+      columns,
+      stripe,
+      verticalLines,
+      condensed,
+    },
+    childRef
+  ) => {
+    const default_pl = condensed ? 'pl-2' : 'pl-3'
+    const default_pr = condensed ? 'pr-2' : 'pr-3'
+    const checkboxStyle =
+      'absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 sm:left-6'
 
-  if (!items) items = []
-  const checkInput = useRef()
-  const [checkboxItems, setCheckboxItems] = useState([...items])
-  const [checked, setChecked] = useState(false)
-  const [indeterminate, setIndeterminate] = useState(false)
-  const [selectedRow, setSelectedRow] = useState([])
+    if (!items) items = []
 
-  useLayoutEffect(() => {
-    const isIndeterminate =
-      selectedRow.length > 0 && selectedRow.length < checkboxItems.length
-    setChecked(
-      selectedRow.length > 0 && selectedRow.length === checkboxItems.length
-    )
-    setIndeterminate(isIndeterminate)
-    checkInput.current.indeterminate = isIndeterminate
-  }, [selectedRow])
+    const checkInput = useRef()
+    const [selectedRow, setSelectedRow] = useState([])
 
-  function selectAll() {
-    setSelectedRow(checked || indeterminate ? [] : checkboxItems)
-    setChecked(!checked && !indeterminate)
-    setIndeterminate(false)
-  }
+    useImperativeHandle(childRef, () => selectedRow)
 
-  function bulkDelete() {
-    setCheckboxItems(
-      checkboxItems.filter((x) => selectedRow.every((y) => y !== x))
-    )
-    setSelectedRow([])
-    setChecked(false)
-    setIndeterminate(false)
-  }
+    useEffect(() => {
+      setSelectedRow([])
+    }, [items])
 
-  function resetData() {
-    setCheckboxItems([...items])
-    setSelectedRow([])
-    setChecked(false)
-    setIndeterminate(false)
-  }
+    useLayoutEffect(() => {
+      checkInput.current.indeterminate =
+        selectedRow.length > 0 && selectedRow.length < items.length
+    }, [selectedRow])
 
-  return (
-    <div className="w-full">
-      <div className="mb-4 space-x-3 text-right">
-        <Button variant="white" onClick={bulkDelete}>
-          Bulk Delete
-        </Button>
-        <Button variant="white" onClick={resetData}>
-          Reset
-        </Button>
-      </div>
+    function selectHandler(e, item) {
+      if (e.target.checked) {
+        setSelectedRow([...selectedRow, item])
+      } else {
+        setSelectedRow(selectedRow.filter((x) => x !== item))
+      }
+    }
 
+    function selectAll() {
+      setSelectedRow(selectedRow.length > 0 ? [] : items)
+      checkInput.current.indeterminate = false
+    }
+
+    return (
       <div className="relative w-full overflow-x-auto rounded-lg shadow ring-1 ring-black ring-opacity-5">
         <table className="w-full divide-y divide-gray-300">
           <thead className="bg-gray-50">
@@ -151,7 +139,10 @@ export function CheckboxTable({
                   type="checkbox"
                   className={checkboxStyle}
                   ref={checkInput}
-                  checked={checked}
+                  checked={
+                    selectedRow.length > 0 &&
+                    selectedRow.length === items.length
+                  }
                   onChange={selectAll}
                 />
               </th>
@@ -171,7 +162,7 @@ export function CheckboxTable({
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {checkboxItems.map((item, index) => (
+            {items.map((item, index) => (
               <tr
                 key={index}
                 className={clsx(
@@ -190,13 +181,7 @@ export function CheckboxTable({
                     className={checkboxStyle}
                     value={item.key}
                     checked={selectedRow.includes(item)}
-                    onChange={(e) =>
-                      setSelectedRow(
-                        e.target.checked
-                          ? [...selectedRow, item]
-                          : selectedRow.filter((p) => p !== item)
-                      )
-                    }
+                    onChange={(e) => selectHandler(e, item)}
                   />
                 </td>
                 {columns.map((column, columnIndex) => (
@@ -219,7 +204,7 @@ export function CheckboxTable({
                 ))}
               </tr>
             ))}
-            {checkboxItems.length === 0 && (
+            {items.length === 0 && (
               <tr>
                 <td
                   className="whitespace-nowrap p-4 text-center text-sm font-medium text-gray-500"
@@ -232,6 +217,6 @@ export function CheckboxTable({
           </tbody>
         </table>
       </div>
-    </div>
-  )
-}
+    )
+  }
+)

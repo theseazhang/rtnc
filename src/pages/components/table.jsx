@@ -1,7 +1,9 @@
 import { Example } from '@/components/layout/example'
 import { BackHome } from '@/components/ui/Nav'
+import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 import Head from 'next/head'
+import { useState, useRef } from 'react'
 import { BasicTable, CheckboxTable } from '@/components/ui/Table'
 
 function actionRender(name) {
@@ -110,6 +112,40 @@ const apiData = {
   ],
 }
 
+function CheckBoxContainer({ mainColumn = columns[0], items, columns }) {
+  const childRef = useRef()
+  const [tableItems, setTableItems] = useState([...items])
+
+  function bulkDelete() {
+    setTableItems(
+      tableItems.filter((x) => childRef.current.every((y) => y !== x))
+    )
+  }
+
+  function resetData() {
+    setTableItems([...items])
+  }
+
+  return (
+    <div className="w-full">
+      <div className="mb-4 space-x-3 text-right">
+        <Button variant="white" onClick={bulkDelete}>
+          Bulk Delete
+        </Button>
+        <Button variant="white" onClick={resetData}>
+          Reset
+        </Button>
+      </div>
+      <CheckboxTable
+        ref={childRef}
+        items={tableItems}
+        columns={columns}
+        mainColumn={mainColumn}
+      />
+    </div>
+  )
+}
+
 export default function Home() {
   return (
     <>
@@ -135,12 +171,13 @@ export default function Home() {
         />
       </Example>
       <Example title="CheckboxTable">
-        <CheckboxTable
+        <CheckBoxContainer
           items={tableData.items}
           columns={tableData.columns}
           mainColumn={tableData.mainColumn}
         />
       </Example>
+
       <Example title="Table Attributes">
         <BasicTable
           items={apiData.items}
